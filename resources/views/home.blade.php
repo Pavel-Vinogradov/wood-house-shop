@@ -34,40 +34,49 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($featuredProducts as $product)
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
                 <!-- Image Placeholder -->
-                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <a href="{{ route('catalog.show', $product->id) }}" class="block h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
                     @if($product->image)
-                        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     @else
-                        <img src="https://placehold.co/400x300/f59e0b/ffffff?text=No+Image" alt="No Image" class="w-full h-full object-cover">
+                        <img src="https://placehold.co/400x300/f59e0b/ffffff?text=No+Image" alt="No Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     @endif
-                </div>
+                </a>
 
                 <!-- Content -->
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                        {{ $product->name }}
-                    </h3>
+                    <a href="{{ route('catalog.show', $product->id) }}" class="block">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
+                            {{ $product->name }}
+                        </h3>
+                    </a>
                     <p class="text-gray-600 text-sm mb-4 line-clamp-2">
                         {{ $product->description }}
                     </p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xl font-bold text-amber-600">
-                            {{ number_format($product->price, 0, ',', ' ') }} ₽
-                        </span>
-                        @if($product->stock > 0)
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
-                                В корзину
-                            </button>
-                        </form>
-                        @else
-                        <span class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg">
-                            Нет в наличии
-                        </span>
-                        @endif
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-amber-600">
+                                {{ number_format($product->price, 0, ',', ' ') }} ₽
+                            </span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="{{ route('catalog.show', $product->id) }}" class="flex-1 text-center px-4 py-2 border-2 border-amber-600 text-amber-600 rounded-lg hover:bg-amber-50 transition-colors">
+                                Просмотр
+                            </a>
+                            @if($product->stock > 0)
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
+                                    В корзину
+                                </button>
+                            </form>
+                            @else
+                            <span class="flex-1 text-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg">
+                                Нет в наличии
+                            </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

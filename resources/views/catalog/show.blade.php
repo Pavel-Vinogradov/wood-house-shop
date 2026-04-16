@@ -4,6 +4,19 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-8">
+        <a href="/" class="hover:text-amber-600 transition-colors">Главная</a>
+        <span>/</span>
+        <a href="/catalog" class="hover:text-amber-600 transition-colors">Каталог</a>
+        @if($product->category)
+            <span>/</span>
+            <a href="/catalog?category={{ $product->category->id }}" class="hover:text-amber-600 transition-colors">{{ $product->category->name }}</a>
+        @endif
+        <span>/</span>
+        <span class="text-gray-900">{{ $product->name }}</span>
+    </nav>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="bg-white rounded-lg shadow p-6">
             @if($product->image)
