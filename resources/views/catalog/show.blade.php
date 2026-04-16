@@ -42,7 +42,7 @@
                 @endif
             </div>
 
-            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mb-4" onsubmit="console.log('Form submitting to:', this.action); return true;">
+            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mb-4">
                 @csrf
                 @if($product->stock > 0)
                     <button type="submit" class="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 font-semibold text-lg">
