@@ -14,44 +14,44 @@ help:
 	@echo "  make clear-cache  - Очистка кэша"
 
 install:
-	composer install
+	docker compose run --rm app composer install
 	npm install
 
 setup:
 	@echo "Настройка проекта..."
 	cp .env.example .env || true
-	composer install
-	php artisan key:generate
-	php artisan migrate --force
+	docker compose run --rm app composer install
+	docker compose run --rm web php artisan key:generate
+	docker compose run --rm web php artisan migrate --force
 	npm install
 	npm run build
 	@echo "Настройка завершена!"
 
 dev:
-	php artisan serve
+	docker compose up -d web
 
 build:
 	npm run build
 
 test:
-	php artisan test
+	docker compose run --rm web php artisan test
 
 migrate:
-	php artisan migrate
+	docker compose run --rm web php artisan migrate
 
 fresh:
-	php artisan migrate:fresh --seed
+	docker compose run --rm web php artisan migrate:fresh --seed
 
 seed:
-	php artisan db:seed
+	docker compose run --rm web php artisan db:seed
 
 optimize:
-	php artisan config:cache
-	php artisan route:cache
-	php artisan view:cache
+	docker compose run --rm web php artisan config:cache
+	docker compose run --rm web php artisan route:cache
+	docker compose run --rm web php artisan view:cache
 
 clear-cache:
-	php artisan config:clear
-	php artisan route:clear
-	php artisan view:clear
-	php artisan cache:clear
+	docker compose run --rm web php artisan config:clear
+	docker compose run --rm web php artisan route:clear
+	docker compose run --rm web php artisan view:clear
+	docker compose run --rm web php artisan cache:clear
