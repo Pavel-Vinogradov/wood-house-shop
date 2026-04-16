@@ -10,10 +10,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table): void {
-            $table->id();
-            $table->string('customer_name');
-            $table->string('customer_email');
-            $table->string('customer_phone');
+            $table->uuid('id')->primary();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status')->default('pending');
             $table->decimal('total_amount', 10, 2);
             $table->timestamps();
