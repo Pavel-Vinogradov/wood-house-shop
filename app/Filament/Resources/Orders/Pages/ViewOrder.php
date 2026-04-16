@@ -9,6 +9,7 @@ use App\Filament\Resources\Orders\Schemas\OrderInfolist;
 use Filament\Actions\EditAction;
 use Filament\Schemas\Schema;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class ViewOrder extends ViewRecord
 {
@@ -24,5 +25,10 @@ class ViewOrder extends ViewRecord
     public function infolist(Schema $schema): Schema
     {
         return OrderInfolist::configure($schema);
+    }
+
+    protected function resolveRecord(string|int $key): Model
+    {
+        return static::getResource()::getModel()::with('user')->findOrFail($key);
     }
 }
