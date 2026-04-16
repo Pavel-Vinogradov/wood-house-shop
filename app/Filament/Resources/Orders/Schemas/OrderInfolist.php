@@ -25,7 +25,7 @@ class OrderInfolist
                             ->label('Email клиента'),
                         TextEntry::make('status')
                             ->label('Статус')
-                            ->formatStateUsing(fn ( OrderStatus $state): string => $state->getLabel())
+                            ->formatStateUsing(fn (OrderStatus $state): string => $state->getLabel())
                             ->badge()
                             ->color(fn (OrderStatus $state): string => $state->getColor()),
                         TextEntry::make('total_amount')

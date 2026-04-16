@@ -6,9 +6,7 @@ namespace App\Services;
 
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
-use App\Models\Eloquent\CategoryModel;
 use App\Models\Eloquent\ProductModel;
-use Illuminate\Support\Str;
 
 readonly class CatalogService
 {

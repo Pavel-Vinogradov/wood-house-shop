@@ -57,9 +57,12 @@
                             {{ number_format($product->price, 0, ',', ' ') }} ₽
                         </span>
                         @if($product->stock > 0)
-                        <button class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
-                            В корзину
-                        </button>
+                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
+                                В корзину
+                            </button>
+                        </form>
                         @else
                         <span class="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg">
                             Нет в наличии
