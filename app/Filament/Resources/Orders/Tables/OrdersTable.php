@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Orders\Tables;
 
+use App\Enums\OrderStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -18,35 +19,20 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label('ИД')
                     ->sortable(),
-                TextColumn::make('customer_name')
-                    ->label('Имя клиента')
+                TextColumn::make('user.name')
+                    ->label('Клиент')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('customer_email')
+                TextColumn::make('user.email')
                     ->label('Email')
-                    ->searchable(),
-                TextColumn::make('customer_phone')
-                    ->label('Телефон')
                     ->searchable(),
                 TextColumn::make('status')
                     ->label('Статус')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'pending' => 'warning',
-                        'processing' => 'info',
-                        'completed' => 'success',
-                        'cancelled' => 'danger',
-                        default => 'gray',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'pending' => 'Ожидает',
-                        'processing' => 'В обработке',
-                        'completed' => 'Выполнен',
-                        'cancelled' => 'Отменён',
-                        default => $state,
-                    }),
+                    ->color(fn (OrderStatus $state): string => $state->getColor())
+                    ->formatStateUsing(fn (OrderStatus $state): string => $state->getLabel()),
                 TextColumn::make('total_amount')
                     ->label('Сумма')
                     ->formatStateUsing(fn (float $state): string => number_format($state, 0, ',', ' ') . ' ₽')
