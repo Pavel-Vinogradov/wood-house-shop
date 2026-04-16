@@ -108,7 +108,7 @@ resources/
 ## Технологии
 
 - Laravel 13
-- Filament (админ-панель)
+- Filament 5.x (админ-панель)
 - Tailwind CSS
 - Vite
 - Alpine.js
